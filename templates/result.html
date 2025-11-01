@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Prediction Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+        }
+        h1 {
+            color: #000000;
+        }
+        .result-container {
+            padding: 20px;
+            border: 1px solid #614520;
+            border-radius: 8px;
+            background-color: #f6f5f4;
+            margin: 20px;
+        }
+        .suggestions {
+            margin-top: 20px;
+        }
+        .go-back {
+            margin-top: 30px;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: rgb(246, 245, 243);
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Career Prediction Result</h1>
+    <div class="result-container">
+        <p><strong>Interest 1:</strong> {{ interest1 }}</p>
+        <p><strong>Interest 2:</strong> {{ interest2 }}</p>
+
+        <h2>Suggested Career Path:</h2>
+        <ul>
+            {% for career in predicted_career.split(',') %}
+                <li>{{ career.strip() }}</li>
+            {% endfor %}
+        </ul>
+
+        <div class="suggestions">
+            <h3>Suggested Field: {{ suggestions.suggested_field }}</h3>
+            <h3>Degree Options:</h3>
+            <ul>
+                {% for degree in suggestions.degree_options.split(',') %}
+                    <li>{{ degree.strip() }}</li>
+                {% endfor %}
+            </ul>
+            
+        </div>
+    </div>
+    
+    <a href="{{ url_for('home') }}" class="go-back">Go Back</a>
+</body>
+</html>
