@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Secondary Interest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Comic+Neue&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Comic Neue', cursive;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 42px;
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 40px rgba(0,0,0,0.2);
+            padding: 20px;
+            z-index: 2;
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+            height: 100%;
+        }
+
+        .card {
+            min-width: calc(100% - 40px);
+            height: 340px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+            font-weight: bold;
+            color: #fff;
+            margin: 0 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            z-index: -1;
+        }
+
+        .card.active {
+            transform: scale(1.05) perspective(1000px) rotateY(5deg);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .arrow {
+            font-size: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .arrow:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .left { left: 30px; }
+        .right { right: 30px; }
+
+        .choose-btn {
+            margin-top: 50px;
+            padding: 20px 50px;
+            font-size: 26px;
+            background: linear-gradient(45deg, rgba(252, 70, 107, 0.9), rgba(63, 94, 251, 0.9));
+            color: white;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .choose-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(255, 105, 180, 0.5);
+        }
+
+        .error-message {
+            color: #ff4d4d;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            display: none;
+            margin-top: 30px;
+            font-size: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (max-width: 768px) {
+            h2 { font-size: 32px; }
+            .carousel-container {
+                max-width: 90%;
+                height: 300px;
+            }
+            .card {
+                height: 260px;
+                font-size: 32px;
+            }
+            .arrow {
+                width: 50px;
+                height: 50px;
+                font-size: 30px;
+            }
+            .choose-btn {
+                font-size: 22px;
+                padding: 15px 40px;
+            }
+        }
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="particles"></div>
+    <h2>🔮 Perfect Pair for {{ interest1 }} 🔮</h2>
+    <button class="logout-btn" onclick="window.location.href='/logout'">Log Out</button>
+    <div class="carousel-container">
+        <button class="arrow left" aria-label="Previous" onclick="moveLeft()">⬅️</button>
+        <div class="carousel" id="carousel">
+            {% for interest in second_interests %}
+                <div class="card" data-value="{{ interest }}">
+                    {{ interest }}
+                </div>
+            {% endfor %}
+        </div>
+        <button class="arrow right" aria-label="Next" onclick="moveRight()">➡️</button>
+    </div>
+
+    <div class="error-message" id="errorMsg">Select a valid pair to continue!</div>
+    <button class="choose-btn" onclick="handleSelection()">🌟 Confirm Synergy 🌟</button>
+
+    <script>
+        let index = 0;
+        const carousel = document.getElementById('carousel');
+        const cards = document.querySelectorAll('.card');
+        const errorMsg = document.getElementById('errorMsg');
+        const totalCards = cards.length;
+
+        function updateCarousel() {
+            carousel.style.transform = `translateX(-${index * 100}%)`;
+            cards.forEach((card, i) => {
+                card.classList.toggle('active', i === index);
+            });
+        }
+
+        function moveLeft() {
+            index = (index - 1 + totalCards) % totalCards;
+            updateCarousel();
+            errorMsg.style.display = 'none';
+        }
+
+        function moveRight() {
+            index = (index + 1) % totalCards;
+            updateCarousel();
+            errorMsg.style.display = 'none';
+        }
+
+        async function handleSelection() {
+            const selectedCard = cards[index];
+            const interest2 = selectedCard.dataset.value;
+            try {
+                const response = await fetch('/validate-interest', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ interest2 })
+                });
+                const data = await response.json();
+                if (data.valid) {
+                    selectedCard.style.transform = 'scale(1.2)';
+                    selectedCard.style.opacity = '0.5';
+                    setTimeout(() => {
+                        window.location.href = `/result?interest2=${encodeURIComponent(interest2)}`;
+                    }, 500);
+                } else {
+                    throw new Error('Invalid selection');
+                }
+            } catch (error) {
+                errorMsg.style.display = 'block';
+                selectedCard.style.animation = 'glitch 0.5s';
+                setTimeout(() => {
+                    selectedCard.style.animation = '';
+                }, 500);
+            }
+        }
+
+        updateCarousel();
+    </script>
+</body>
+</html>
